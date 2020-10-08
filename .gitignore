@@ -1,0 +1,25 @@
+
+# Created by https://www.toptal.com/developers/gitignore/api/visualstudiocode,platformio
+# Edit at https://www.toptal.com/developers/gitignore?templates=visualstudiocode,platformio
+
+### PlatformIO ###
+.pioenvs
+.piolibdeps
+.clang_complete
+.gcc-flags.json
+.pio
+
+### VisualStudioCode ###
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+.history
+.ionide
+
+# End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,platformio
