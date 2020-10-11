@@ -120,7 +120,7 @@
  *
  * :[2400, 9600, 19200, 38400, 57600, 115200, 250000, 500000, 1000000]
  */
-#define BAUDRATE 115200
+#define BAUDRATE 250000
 
 // Enable the Bluetooth serial interface on AT90USB devices
 //#define BLUETOOTH
@@ -494,9 +494,9 @@
     #define DEFAULT_Ki_LIST {   1.08,   1.08 }
     #define DEFAULT_Kd_LIST { 114.00, 114.00 }
   #else
-    #define DEFAULT_Kp  24.00
-    #define DEFAULT_Ki   0.88
-    #define DEFAULT_Kd  80.00
+    #define DEFAULT_Kp  15.04
+    #define DEFAULT_Ki   1.30
+    #define DEFAULT_Kd  43.30
   #endif
 #endif // PIDTEMP
 
@@ -534,9 +534,9 @@
   //#define PID_BED_DEBUG // Sends debug data to the serial port.
 
   // KINGROON KP3S
-  #define DEFAULT_bedKp  10.000
-  #define DEFAULT_bedKi   0.023
-  #define DEFAULT_bedKd 305.400
+  #define DEFAULT_bedKp 100.43
+  #define DEFAULT_bedKi  15.47
+  #define DEFAULT_bedKd 434.75
 
   // FIND YOUR OWN: "M303 E-1 C8 S90" to run autotune on the bed at 90 degreesC for 8 cycles.
 #endif // PIDTEMPBED
@@ -2203,7 +2203,7 @@
 // TFT display with optional touch screen
 // Color Marlin UI with standard menu system
 //
-//#define TFT_320x240
+#define TFT_320x240
 //#define TFT_320x240_SPI
 //#define TFT_480x320
 //#define TFT_480x320_SPI
@@ -2225,7 +2225,7 @@
 // FSMC display (MKS Robin, Alfawise U20, JGAurora A5S, REXYZ A1, etc.)
 // Upscaled 128x64 Marlin UI
 //
-#define FSMC_GRAPHICAL_TFT
+//#define FSMC_GRAPHICAL_TFT
 
 //
 // TFT LVGL UI
@@ -2263,16 +2263,22 @@
   #define TOUCH_SCREEN_CALIBRATION
 
   /* MKS Robin TFT v2.0 */
-  #define XPT2046_X_CALIBRATION  12013
-  #define XPT2046_Y_CALIBRATION  -8711
-  #define XPT2046_X_OFFSET         -32
-  #define XPT2046_Y_OFFSET         256
+  //#define XPT2046_X_CALIBRATION  12013
+  //#define XPT2046_Y_CALIBRATION  -8711
+  //#define XPT2046_X_OFFSET         -32
+  //#define XPT2046_Y_OFFSET         256
 
   /* MKS Robin TFT v1.1 */
   //#define XPT2046_X_CALIBRATION -11792
   //#define XPT2046_Y_CALIBRATION   8947
   //#define XPT2046_X_OFFSET         342
   //#define XPT2046_Y_OFFSET         -19
+
+  /* KingRoon TFT24 v1.1 */
+  #define XPT2046_X_CALIBRATION -11728
+  #define XPT2046_Y_CALIBRATION   8671
+  #define XPT2046_X_OFFSET         352
+  #define XPT2046_Y_OFFSET         -17
 #endif
 
 //
