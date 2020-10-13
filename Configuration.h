@@ -346,11 +346,10 @@
   #endif
 #endif
 
-// @section temperature
-
 //===========================================================================
 //============================= Thermal Settings ============================
 //===========================================================================
+// @section temperature
 
 /**
  * --NORMAL IS 4.7kohm PULLUP!-- 1kohm pullup can be used on hotend sensor, using correct resistor and table
@@ -432,16 +431,22 @@
 #define DUMMY_THERMISTOR_998_VALUE 25
 #define DUMMY_THERMISTOR_999_VALUE 100
 
+// Resistor values when using a MAX31865 (sensor -5)
+// Sensor value is typically 100 (PT100) or 1000 (PT1000)
+// Calibration value is typically 430 ohm for AdaFruit PT100 modules and 4300 ohm for AdaFruit PT1000 modules.
+//#define MAX31865_SENSOR_OHMS      100
+//#define MAX31865_CALIBRATION_OHMS 430
+
 // Use temp sensor 1 as a redundant sensor with sensor 0. If the readings
 // from the two sensors differ too much the print will be aborted.
 //#define TEMP_SENSOR_1_AS_REDUNDANT
 #define MAX_REDUNDANT_TEMP_SENSOR_DIFF 10
 
-#define TEMP_RESIDENCY_TIME      5  // (seconds) Time to wait for hotend to "settle" in M109
+#define TEMP_RESIDENCY_TIME     10  // (seconds) Time to wait for hotend to "settle" in M109
 #define TEMP_WINDOW              1  // (°C) Temperature proximity for the "temperature reached" timer
 #define TEMP_HYSTERESIS          3  // (°C) Temperature proximity considered "close enough" to the target
 
-#define TEMP_BED_RESIDENCY_TIME  5  // (seconds) Time to wait for bed to "settle" in M190
+#define TEMP_BED_RESIDENCY_TIME 10  // (seconds) Time to wait for bed to "settle" in M190
 #define TEMP_BED_WINDOW          1  // (°C) Temperature proximity for the "temperature reached" timer
 #define TEMP_BED_HYSTERESIS      3  // (°C) Temperature proximity considered "close enough" to the target
 
@@ -705,7 +710,7 @@
  *
  * :[2,3,4,5,6,7]
  */
-#define ENDSTOP_NOISE_THRESHOLD 2
+//#define ENDSTOP_NOISE_THRESHOLD 2
 
 // Check for stuck or disconnected endstops during homing moves.
 //#define DETECT_BROKEN_ENDSTOP
@@ -1029,8 +1034,8 @@
 #define Z_PROBE_LOW_POINT          -3 // Farthest distance below the trigger-point to go before stopping
 
 // For M851 give a range for adjusting the Z probe offset
-#define Z_PROBE_OFFSET_RANGE_MIN -5
-#define Z_PROBE_OFFSET_RANGE_MAX 1
+#define Z_PROBE_OFFSET_RANGE_MIN -20
+#define Z_PROBE_OFFSET_RANGE_MAX 20
 
 // Enable the M48 repeatability test to test probe accuracy
 //#define Z_MIN_PROBE_REPEATABILITY_TEST
@@ -1153,7 +1158,7 @@
 #endif
 
 #if EITHER(MIN_SOFTWARE_ENDSTOPS, MAX_SOFTWARE_ENDSTOPS)
-  #define SOFT_ENDSTOPS_MENU_ITEM  // Enable/Disable software endstops from the LCD
+  //#define SOFT_ENDSTOPS_MENU_ITEM  // Enable/Disable software endstops from the LCD
 #endif
 
 /**
@@ -1387,7 +1392,7 @@
 #endif
 
 // Homing speeds (mm/min)
-#define HOMING_FEEDRATE_XY (20*60)
+#define HOMING_FEEDRATE_XY (30*60)
 #define HOMING_FEEDRATE_Z  (4*60)
 
 // Validate that endstops are triggered on homing moves
@@ -1719,7 +1724,6 @@
  * you must uncomment the following option or it won't work.
  */
 #define SDSUPPORT
-#define SDIO_SUPPORT
 
 /**
  * SD CARD: SPI SPEED
@@ -2199,43 +2203,47 @@
 //=============================== Graphical TFTs ==============================
 //=============================================================================
 
-//
-// TFT display with optional touch screen
-// Color Marlin UI with standard menu system
-//
-#define TFT_320x240
-//#define TFT_320x240_SPI
-//#define TFT_480x320
-//#define TFT_480x320_SPI
+/**
+ * TFT Type - Select your Display type
+ *
+ * Available options are:
+ *   MKS_TS35_V2_0,
+ *   MKS_ROBIN_TFT24, MKS_ROBIN_TFT28, MKS_ROBIN_TFT32, MKS_ROBIN_TFT35,
+ *   MKS_ROBIN_TFT43, MKS_ROBIN_TFT_V1_1R
+ *   TFT_TRONXY_X5SA, ANYCUBIC_TFT35, LONGER_LK_TFT28
+ *   TFT_GENERIC
+ *
+ * For TFT_GENERIC, you need to configure these 3 options:
+ *   Driver:     TFT_DRIVER
+ *               Current Drivers are: AUTO, ST7735, ST7789, ST7796, R61505, ILI9328, ILI9341, ILI9488
+ *   Resolution: TFT_WIDTH and TFT_HEIGHT
+ *   Interface:  TFT_INTERFACE_FSMC or TFT_INTERFACE_SPI
+ */
+#define MKS_ROBIN_TFT24
 
-//
-// Skip autodetect and force specific TFT driver
-// Mandatory for SPI screens with no MISO line
-// Available drivers are: ST7735, ST7789, ST7796, R61505, ILI9328, ILI9341, ILI9488
-//
-//#define TFT_DRIVER AUTO
+/**
+ * TFT UI - User Interface Selection. Enable one of the following options:
+ *
+ *   TFT_CLASSIC_UI - Emulated DOGM - 128x64 Upscaled
+ *   TFT_COLOR_UI   - Marlin Default Menus, Touch Friendly, using full TFT capabilities
+ *   TFT_LVGL_UI    - A Modern UI using LVGL
+ *
+ *   For LVGL_UI also copy the 'assets' folder from the build directory to the
+ *   root of your SD card, together with the compiled firmware.
+ */
+//#define TFT_CLASSIC_UI
+#define TFT_COLOR_UI
+//#define TFT_LVGL_UI
 
-//
-// SPI display (MKS Robin Nano V2.0, MKS Gen L V2.0)
-// Upscaled 128x64 Marlin UI
-//
-//#define SPI_GRAPHICAL_TFT
-
-//
-// FSMC display (MKS Robin, Alfawise U20, JGAurora A5S, REXYZ A1, etc.)
-// Upscaled 128x64 Marlin UI
-//
-//#define FSMC_GRAPHICAL_TFT
-
-//
-// TFT LVGL UI
-//
-// Using default MKS icons and fonts from: https://git.io/JJvzK
-// Just copy the 'assets' folder from the build directory to the
-// root of your SD card, together with the compiled firmware.
-//
-//#define TFT_LVGL_UI_FSMC  // Robin nano v1.2 uses FSMC
-//#define TFT_LVGL_UI_SPI   // Robin nano v2.0 uses SPI
+/**
+ * TFT Rotation. Set to one of the following values:
+ *
+ *   TFT_ROTATE_90,  TFT_ROTATE_90_MIRROR_X,  TFT_ROTATE_90_MIRROR_Y,
+ *   TFT_ROTATE_180, TFT_ROTATE_180_MIRROR_X, TFT_ROTATE_180_MIRROR_Y,
+ *   TFT_ROTATE_270, TFT_ROTATE_270_MIRROR_X, TFT_ROTATE_270_MIRROR_Y,
+ *   TFT_MIRROR_X, TFT_MIRROR_Y, TFT_NO_ROTATION
+ */
+#define TFT_ROTATION TFT_ROTATE_180
 
 //=============================================================================
 //============================  Other Controllers  ============================
@@ -2247,38 +2255,27 @@
 //#define DWIN_CREALITY_LCD
 
 //
-// MarlinUI for Creality's DWIN display (and others)
-//
-//#define DWIN_MARLINUI_PORTRAIT
-//#define DWIN_MARLINUI_LANDSCAPE
-
-//
 // ADS7843/XPT2046 ADC Touchscreen such as ILI9341 2.8
 //
 #define TOUCH_SCREEN
 #if ENABLED(TOUCH_SCREEN)
-  #define BUTTON_DELAY_EDIT  75 // (ms) Button repeat delay for edit screens
-  #define BUTTON_DELAY_MENU 100 // (ms) Button repeat delay for menus
+  #define BUTTON_DELAY_EDIT  50 // (ms) Button repeat delay for edit screens
+  #define BUTTON_DELAY_MENU 250 // (ms) Button repeat delay for menus
 
   #define TOUCH_SCREEN_CALIBRATION
 
-  /* MKS Robin TFT v2.0 */
-  //#define XPT2046_X_CALIBRATION  12013
-  //#define XPT2046_Y_CALIBRATION  -8711
-  //#define XPT2046_X_OFFSET         -32
-  //#define XPT2046_Y_OFFSET         256
+  /*
+  // This works
+  #define XPT2046_X_CALIBRATION  12649
+  #define XPT2046_Y_CALIBRATION  -9791
+  #define XPT2046_X_OFFSET         -53
+  #define XPT2046_Y_OFFSET         272
+  */
 
-  /* MKS Robin TFT v1.1 */
-  //#define XPT2046_X_CALIBRATION -11792
-  //#define XPT2046_Y_CALIBRATION   8947
-  //#define XPT2046_X_OFFSET         342
-  //#define XPT2046_Y_OFFSET         -19
-
-  /* KingRoon TFT24 v1.1 */
-  #define XPT2046_X_CALIBRATION -11728
-  #define XPT2046_Y_CALIBRATION   8671
-  #define XPT2046_X_OFFSET         352
-  #define XPT2046_Y_OFFSET         -17
+  #define XPT2046_X_CALIBRATION  12021
+  #define XPT2046_Y_CALIBRATION  -9203
+  #define XPT2046_X_OFFSET         -35
+  #define XPT2046_Y_OFFSET         264
 #endif
 
 //

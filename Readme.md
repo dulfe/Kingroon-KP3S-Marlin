@@ -5,16 +5,20 @@ compile your the MARLIN firmware for **Kingroon KP3S 3D Printer**.
 
 It uses the "**example**" KP3 configuration from [Marlin/Configuration repo](https://github.com/MarlinFirmware/Configurations) as a base and some modifications to make it work with this board.
 
-**This configuration has been tested with Marlin 2.0.7**
+**This configuration has been tested with Marlin 2.0.7.2**
+
+*Marlin 2.0.7.2 has a [bug with TOUCH CALIBRATION](https://github.com/MarlinFirmware/Marlin/issues/19721) so `M995` does not work as expected. This CONFIGURATION has values that currently work with my screen.*
 
 
 ## Notes
 
 - It uses a modified version of the **MKS Robin Nano** board named **Kingroon KP3 v1.2**
 - It uses **TMC2225** drivers which are compatible to **A4988**.
-- TFT display needs to be scaled 2x
+- Screen is a modified version of **MKS TFT24** named **KingRoon TFT24 v1.1**
+- Stock firmware uses Marlin Emulation mode in the TFT screen that communicates with the mainboard using G-Codes, but uses an old MKS UI library (not supported by stock Marlin)
+- Marlin Emulation mode (a.k.a. Modern UI) currently only supported with TFT35 screens, so TFT24 needs to use full TFT.
 - Default settings were taken from the original SD card, file `robin_nano_cfg.txt`
-- Stock display is in portrait mode, but Marlin needs it to be landscape. (If you know a way to rotate it 90º thru code, please tell me!)
+- Stock display is in portrait mode, but Marlin needs it to be landscape. 
   
 Even thought the PID values have been taken from the default configuration file, I found out it is better to [calibrate](https://www.3dmakerengineering.com/blogs/3d-printing/pid-tuning-marlin-firmware) it yourself.
 
