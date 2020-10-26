@@ -1127,12 +1127,12 @@
 // @section machine
 
 // The size of the print bed
-#define X_BED_SIZE 160  // KP3S bed is 180x180, but with my current custom extruder the bed has been reduced to 160x176 <-- I WILL FIX THIS! :)
-#define Y_BED_SIZE 176  // KP3S bed is 180x180, but with my current custom extruder the bed has been reduced to 160x176 <-- I WILL FIX THIS! :)
+#define X_BED_SIZE 180  
+#define Y_BED_SIZE 174  // KP3S bed is 180x180, but with my current custom extruder the bed has been reduced to 180x174
 
 // Travel limits (mm) after homing, corresponding to endstop positions.
 #define X_MIN_POS 0
-#define Y_MIN_POS -4 // My current custom extruder is 2mm outside bed. Default KP3S is 0 <-- I need to fix this.
+#define Y_MIN_POS -6 // My current custom extruder is 6mm outside bed. Default KP3S is 0
 #define Z_MIN_POS 0
 #define X_MAX_POS X_BED_SIZE
 #define Y_MAX_POS Y_BED_SIZE
@@ -2436,3 +2436,9 @@
 
 // Edit servo angles with M281 and save to EEPROM with M500
 //#define EDITABLE_SERVO_ANGLES
+
+// LCD COLORS
+// https://trolsoft.ru/en/articles/rgb565-color-picker
+#define COLOR_BACKGROUND 0x0000
+//#define COLOR_MENU_TEXT 0xFFFF
+#define COLOR_SELECTION_BG 0xFBC4
