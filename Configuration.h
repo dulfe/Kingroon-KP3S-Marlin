@@ -465,7 +465,7 @@
 // Above this temperature the heater will be switched off.
 // This can protect components from overheating, but NOT from shorts and failures.
 // (Use MINTEMP for thermistor short/failure protection.)
-#define HEATER_0_MAXTEMP 285  // E3D V6 supports up to 285 - OVERSHOOT is 15, so the max the printer will get is 270 / Default in KP3S is 275
+#define HEATER_0_MAXTEMP 300  // E3D V6 supports up to 285 - OVERSHOOT is 15, so the max the printer will get is 285 / Default in KP3S is 275
 #define HEATER_1_MAXTEMP 275
 #define HEATER_2_MAXTEMP 275
 #define HEATER_3_MAXTEMP 275
@@ -830,7 +830,7 @@
  *
  * See https://github.com/synthetos/TinyG/wiki/Jerk-Controlled-Motion-Explained
  */
-#define S_CURVE_ACCELERATION
+//#define S_CURVE_ACCELERATION
 
 //===========================================================================
 //============================= Z Probe Options =============================
@@ -991,11 +991,11 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-#define NOZZLE_TO_PROBE_OFFSET { 28, 0, 0 }
+#define NOZZLE_TO_PROBE_OFFSET { 37, 8, 0 }
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
-#define PROBING_MARGIN 5
+#define PROBING_MARGIN 15
 
 // X and Y axis travel speed (mm/min) between probes
 #define XY_PROBE_SPEED (133*60)
@@ -1059,7 +1059,7 @@
  * These options are most useful for the BLTouch probe, but may also improve
  * readings with inductive probes and piezo sensors.
  */
-#define PROBING_HEATERS_OFF       // Turn heaters off when probing
+//#define PROBING_HEATERS_OFF       // Turn heaters off when probing
 #if ENABLED(PROBING_HEATERS_OFF)
   //#define WAIT_FOR_BED_HEATER     // Wait for bed to heat back up between probes (to improve accuracy)
 #endif
@@ -1128,11 +1128,11 @@
 
 // The size of the print bed
 #define X_BED_SIZE 180  
-#define Y_BED_SIZE 174  // KP3S bed is 180x180, but with my current custom extruder the bed has been reduced to 180x174
+#define Y_BED_SIZE 169  // KP3S bed is 180x180, but with my current custom extruder the bed has been reduced
 
 // Travel limits (mm) after homing, corresponding to endstop positions.
 #define X_MIN_POS 0
-#define Y_MIN_POS -6 // My current custom extruder is 6mm outside bed. Default KP3S is 0
+#define Y_MIN_POS -11 // My current custom extruder is outside bed. Default KP3S is 0
 #define Z_MIN_POS 0
 #define X_MAX_POS X_BED_SIZE
 #define Y_MAX_POS Y_BED_SIZE
@@ -1239,8 +1239,8 @@
  */
 //#define AUTO_BED_LEVELING_3POINT
 //#define AUTO_BED_LEVELING_LINEAR
-//#define AUTO_BED_LEVELING_BILINEAR
-#define AUTO_BED_LEVELING_UBL
+#define AUTO_BED_LEVELING_BILINEAR
+//#define AUTO_BED_LEVELING_UBL
 //#define MESH_BED_LEVELING
 
 /**
